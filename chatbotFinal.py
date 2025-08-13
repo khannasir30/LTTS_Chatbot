@@ -21,7 +21,7 @@ with col2:
 # === Load Excel from repo ===
 @st.cache_data
 def load_data():
-    file_path = os.path.join(os.path.dirname(__file__), "OPS MIS_BRD 3_V1.1 (1).xlsx")
+    file_path = os.path.join(os.path.dirname(__file__), "OPS MIS_BRD 3_V1.1.xlsx")
     if os.path.exists(file_path):
         df = pd.read_excel(file_path, sheet_name="P&L")
         df['Month'] = pd.to_datetime(df['Month'], errors='coerce')
@@ -189,4 +189,5 @@ if uploaded_file is not None:
 
 else:
     st.warning("Please upload your P&L Excel file to start.")
+
 
