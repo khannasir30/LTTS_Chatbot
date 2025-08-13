@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import re
-from io import BytesIO
+import os
 
 # === PAGE LAYOUT ===
 st.set_page_config(layout="wide")
@@ -11,26 +11,26 @@ col1, col2 = st.columns([8, 2])
 with col1:
     st.title("Conversational Analytics Assistant")
     st.write("Welcome to AIde — an AI-powered tool for analyzing business trends using your P&L and utilization data.")
-
 with col2:
-    logo_file = st.file_uploader("Upload Logo (PNG/JPG)", type=["png", "jpg", "jpeg"], key="logo_uploader")
-    if logo_file is not None:
-        st.image(logo_file, width=200)
+    logo_path = os.path.join(os.path.dirname(__file__), "SE logo.png")
+    if os.path.exists(logo_path):
+        st.image(logo_path, width=200)
     else:
-        st.info("Upload a logo to display here.")
+        st.warning("Logo image not found in repository.")
 
-# === File Upload for Excel ===
-st.subheader("📂 Upload P&L Excel File")
-uploaded_file = st.file_uploader("Upload your P&L Excel", type=["xlsx"], key="excel_uploader")
-
+# === Load Excel from repo ===
 @st.cache_data
-def load_data(file_data: BytesIO):
-    df = pd.read_excel(file_data, sheet_name="P&L")
-    df['Month'] = pd.to_datetime(df['Month'], errors='coerce')
-    df['Quarter_Year'] = "Q" + df['Month'].dt.quarter.astype(str) + df['Month'].dt.year.astype(str)
-    df['Group1'] = df['Group1'].str.upper()
-    return df
-
+def load_data():
+    file_path = os.path.join(os.path.dirname(__file__), "OPS MIS_BRD 3_V1.1 (1).xlsx")
+    if os.path.exists(file_path):
+        df = pd.read_excel(file_path, sheet_name="P&L")
+        df['Month'] = pd.to_datetime(df['Month'], errors='coerce')
+        df['Quarter_Year'] = "Q" + df['Month'].dt.quarter.astype(str) + df['Month'].dt.year.astype(str)
+        df['Group1'] = df['Group1'].str.upper()
+        return df
+    else:
+        st.error("Excel file not found in repository.")
+        return pd.DataFrame()
 if uploaded_file is not None:
     df = load_data(uploaded_file)
 
@@ -189,3 +189,4 @@ if uploaded_file is not None:
 
 else:
     st.warning("Please upload your P&L Excel file to start.")
+
