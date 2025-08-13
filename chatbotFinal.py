@@ -8,8 +8,9 @@ import requests
 st.set_page_config(layout="wide")
 
 # ==== GitHub File URLs ====
-GITHUB_EXCEL_URL = "https://github.com/khannasir30/LTTS_Chatbot/blob/main/OPS%20MIS_BRD%203_V1.1.xlsx"
-GITHUB_LOGO_URL = "https://github.com/khannasir30/LTTS_Chatbot/blob/main/SE%20logo.png"
+
+GITHUB_EXCEL_URL = "https://raw.githubusercontent.com/khannasir30/LTTS_Chatbot/main/path/to/OPS MIS_BRD 3_V1.1.xlsx"
+GITHUB_LOGO_URL = "https://raw.githubusercontent.com/khannasir30/LTTS_Chatbot/main/path/to/SE logo.png"
 
 # === Load Logo from GitHub ===
 def load_logo(url):
