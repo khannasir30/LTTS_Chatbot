@@ -31,8 +31,8 @@ def load_data():
     else:
         st.error("Excel file not found in repository.")
         return pd.DataFrame()
-if uploaded_file is not None:
-    df = load_data(uploaded_file)
+#if uploaded_file is not None:
+df = load_data(uploaded_file)
 
     # --- Sample Question Buttons ---
     sample_questions = [
@@ -189,5 +189,6 @@ if uploaded_file is not None:
 
 else:
     st.warning("Please upload your P&L Excel file to start.")
+
 
 
