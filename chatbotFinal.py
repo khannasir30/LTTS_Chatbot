@@ -187,8 +187,9 @@ def load_data():
         agg_df['Margin %'] = agg_df['Margin %'].map(lambda x: f"{x:.1f}%")
         st.dataframe(agg_df, use_container_width=True)
 
-else:
-    st.warning("Please upload your P&L Excel file to start.")
+#else:
+ #   st.warning("Please upload your P&L Excel file to start.")
+
 
 
 
