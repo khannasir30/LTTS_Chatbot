@@ -1,17 +1,9 @@
 import streamlit as st
 import pandas as pd
 import re
-from io import BytesIO
-import requests
 
 # === PAGE LAYOUT ===
 st.set_page_config(layout="wide")
-
-# ==== GitHub File URLs ====
-
-GITHUB_EXCEL_URL = "https://raw.githubusercontent.com/khannasir30/LTTS_Chatbot/main/OPS%20MIS_BRD%203_V1.1.xlsx"
-GITHUB_LOGO_URL = "https://raw.githubusercontent.com/khannasir30/LTTS_Chatbot/main/SE%20logo.png"
-
 
 # --- Title and Logo ---
 col1, col2 = st.columns([8, 2])
@@ -215,3 +207,4 @@ if not df.empty:
         agg_df['Margin %'] = agg_df['Margin %'].map(lambda x: f"{x:.1f}%")
 
         st.dataframe(agg_df, use_container_width=True)
+
