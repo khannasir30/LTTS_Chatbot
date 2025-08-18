@@ -64,13 +64,13 @@ if not df.empty:
     revenue_groups = ["ONSITE", "OFFSHORE", "INDIRECT REVENUE"]
     revenue_df = (
         df[df['Group1'].isin(revenue_groups)]
-        .groupby(['FinalCustomerName', 'Quarter_Year', 'Month'], as_index=False)['Amount in USD']
+        .groupby(['FinalCustomerName', 'Quarter_Year'], as_index=False)['Amount in USD']
         .sum()
         .rename(columns={'FinalCustomerName': 'Client', 'Amount in USD': 'Revenue'})
     )
     revenue_dfs = (
         df[df['Group1'].isin(revenue_groups)]
-        .groupby(['Segment', 'Quarter_Year', 'Month'], as_index=False)['Amount in USD']
+        .groupby(['Segment', 'Quarter_Year'], as_index=False)['Amount in USD']
         .sum()
         .rename(columns={'Segment': 'Segment', 'Amount in USD': 'Revenue'})
     )
@@ -80,18 +80,18 @@ if not df.empty:
     ]
     cost_df = (
         df[df['Group1'].isin(cost_groups)]
-        .groupby(['FinalCustomerName', 'Quarter_Year', 'Month'], as_index=False)['Amount in USD']
+        .groupby(['FinalCustomerName', 'Quarter_Year'], as_index=False)['Amount in USD']
         .sum()
         .rename(columns={'FinalCustomerName': 'Client', 'Amount in USD': 'Cost'})
     )
     cost_dfs = (
         df[df['Group1'].isin(cost_groups)]
-        .groupby(['Segment', 'Quarter_Year', 'Month'], as_index=False)['Amount in USD']
+        .groupby(['Segment', 'Quarter_Year'], as_index=False)['Amount in USD']
         .sum()
         .rename(columns={'Segment': 'Segment', 'Amount in USD': 'Cost'})
     )
     
-    final_df = pd.merge(revenue_df, cost_df, on=['Client', 'Quarter_Year', 'Month'], how='outer').fillna(0)
+    final_df = pd.merge(revenue_df, cost_df, on=['Client', 'Quarter_Year'], how='outer').fillna(0)
     final_df['Margin %'] = 0.0
     mask = final_df['Revenue'] != 0
     final_df.loc[mask, 'Margin %'] = ((final_df['Revenue'] - final_df['Cost']) / final_df['Revenue']) * 100
@@ -207,4 +207,5 @@ if not df.empty:
         agg_df['Margin %'] = agg_df['Margin %'].map(lambda x: f"{x:.1f}%")
 
         st.dataframe(agg_df, use_container_width=True)
+
 
