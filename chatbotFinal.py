@@ -170,7 +170,7 @@ if not df.empty:
     with tab2:
         st.subheader("Aggregated Revenue, Cost & Margin by Month")
         agg_df = (
-            final_df.groupby("Month", as_index=False)[["Revenue", "Cost"]]
+            final_df.groupby("Quarter_Year", as_index=False)[["Revenue", "Cost"]]
             .sum()
         )
         agg_df['Margin %'] = 0.0
@@ -195,7 +195,7 @@ if not df.empty:
     with tab4:
         st.subheader("Aggregated Revenue, Cost & Margin by Month")
         agg_df = (
-            final_df.groupby("Month", as_index=False)[["Revenue", "Cost"]]
+            final_df.groupby("Quarter_Year", as_index=False)[["Revenue", "Cost"]]
             .sum()
         )
         agg_df['Margin %'] = 0.0
@@ -207,5 +207,6 @@ if not df.empty:
         agg_df['Margin %'] = agg_df['Margin %'].map(lambda x: f"{x:.1f}%")
 
         st.dataframe(agg_df, use_container_width=True)
+
 
 
